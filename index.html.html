@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FELIX ÖFB Team WM 2026</title>
+
+<style>
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body {
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg,#c2e688,#0eec21);
+    color:white;
+}
+
+/* 🔥 HEADER MIT TEAMFOTO */
+header {
+    position: relative;
+    height: 350px;
+    background: url("bilder/team.jpg") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profilbild {
+    position: absolute;
+    right: 30px;
+    bottom: 20px;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid white;
+    z-index: 2;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+/* dunkler Overlay */
+header::before {
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    background: rgba(0, 0, 0, 0.5);
+    top:0;
+    left:0;
+}
+
+/* Titel */
+header h1 {
+    position: relative;
+    z-index:1;
+    font-size:2.5rem;
+    color:white;
+}
+
+/* FILTER */
+.filters {
+    text-align:center;
+    padding:20px;
+}
+
+button {
+    background:#ff4d4d;
+    border:none;
+    padding:10px 15px;
+    margin:5px;
+    border-radius:10px;
+    color:white;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+button:hover {
+    background:#ff1a1a;
+}
+
+/* GRID */
+.team {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    padding:20px;
+}
+
+/* CARD */
+.card {
+    background:rgba(255,255,255,0.1);
+    border-radius:20px;
+    overflow:hidden;
+    backdrop-filter:blur(10px);
+    transition:0.3s;
+    cursor:pointer;
+    opacity:0;
+    transform:translateY(30px);
+    animation:fadeIn 0.8s forwards;
+}
+
+.card:hover {
+    transform:translateY(-10px) scale(1.03);
+}
+
+/* ✅ BILD FIX (Gesicht sichtbar) */
+.card img {
+    width:100%;
+    height:auto;
+    max-height: 300px;
+    object-fit:contain;
+    background: #84c0b1;
+}
+
+/* TEXT */
+.content {
+    text-align:center;
+    padding:15px;
+}
+
+.content h2 {
+    color:#ff4d4d;
+}
+
+/* 📱 MOBILE */
+@media (max-width:600px) {
+
+    header {
+        height:200px;
+    }
+
+    header h1 {
+        font-size:1.6rem;
+        text-align:center;
+        padding:10px;
+    }
+
+    .card img {
+        height:170px;
+    }
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+    to {
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* MODAL */
+.modal {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.8);
+    display:none;
+    justify-content:center;
+    align-items:center;
+}
+
+.modal-content {
+    background:white;
+    color:black;
+    padding:20px;
+    border-radius:15px;
+    max-width:400px;
+    text-align:center;
+}
+
+.close {
+    float:right;
+    cursor:pointer;
+    font-size:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 🔥 HEADER -->
+<header>
+    <h1>FELIX<br>ÖFB Team WM 2026 🇦🇹</h1>
+    <img src="bilder/Felix.png" class="profilbild">
+</header>
+
+<!-- FILTER -->
+<div class="filters">
+<button onclick="filter('all')">Alle</button>
+<button onclick="filter('torwart')">Torwart</button>
+<button onclick="filter('abwehr')">Abwehr</button>
+<button onclick="filter('mittelfeld')">Mittelfeld</button>
+<button onclick="filter('sturm')">Sturm</button>
+<button onclick="filter('krankenstand')">Krankenstand</button>
+<button onclick="filter('fixstarter')">Fixstarter WM 2034</button>
+</div>
+
+<!-- TEAM -->
+<section class="team">
+
+<div class="card" data-pos="torwart"
+onclick="openModal('Alexander Schlager','Torwart','RB Salzburg','Salzburg Jugend → LASK → Salzburg')">
+<img src="bilder/Schlager_A.png">
+<div class="content">
+<h2>Alexander Schlager</h2>
+<p>Torwart</p>
+</div>
+</div>
+
+<div class="card" data-pos="torwart"
+onclick="openModal('Patrick Pentz','Torwart','Brøndby IF','Austria Wien → Reims → Brøndby')">
+<img src="bilder/Pentz.png">
+<div class="content">
+<h2>Patrick Pentz</h2>
+<p>Torwart</p>
+</div>
+</div>
+
+<div class="card" data-pos="torwart"
+onclick="openModal('Florian Wiegele','Torwart','Viktoria Pilsen','Sturm Graz → Pilsen')">
+<img src="bilder/Wiegele.png">
+<div class="content">
+<h2>Florian Wiegele</h2>
+<p>Torwart</p>
+</div>
+</div>
+
+<div class="card" data-pos="abwehr"
+onclick="openModal('David Alaba','Verteidiger','Real Madrid','Austria Wien → Bayern → Real Madrid')">
+<img src="bilder/alaba.png">
+<div class="content">
+<h2>David Alaba</h2>
+<p>Verteidiger</p>
+</div>
+</div>
+
+<div class="card" data-pos="abwehr"
+onclick="openModal('Kevin Danso','Verteidiger','Tottenham','Augsburg → Lens → Tottenham')">
+<img src="bilder/Danso.png">
+<div class="content">
+<h2>Kevin Danso</h2>
+<p>Verteidiger</p>
+</div>
+</div>
+
+<div class="card" data-pos="abwehr"
+onclick="openModal('Philipp Lienhart','Verteidiger','SC Freiburg','Rapid → Real Madrid Castilla → Freiburg')">
+<img src="bilder/Lienhart.png">
+<div class="content">
+<h2>Philipp Lienhart</h2>
+<p>Verteidiger</p>
+</div>
+</div>
+
+<div class="card" data-pos="abwehr"
+onclick="openModal('Marco Friedl','Verteidiger','Werder Bremen','Bayern → Bremen')">
+<img src="bilder/Friedl.png">
+<div class="content">
+<h2>Marco Friedl</h2>
+<p>Verteidiger</p>
+</div>
+</div>
+
+<div class="card" data-pos="abwehr"
+onclick="openModal('Stefan Posch','Verteidiger','Mainz 05','Sturm Graz → Hoffenheim → Mainz')">
+<img src="bilder/Posch.png">
+<div class="content">
+<h2>Stefan Posch</h2>
+<p>Verteidiger</p>
+</div>
+</div>
+
+<div class="card" data-pos="abwehr"
+onclick="openModal('Michael Svoboda','Verteidiger','Venezia','Austria Wien → Venezia')">
+<img src="bilder/Svoboda.png">
+<div class="content">
+<h2>Michael Svoboda</h2>
+<p>Verteidiger</p>
+</div>
+</div>
+
+<div class="card" data-pos="abwehr"
+onclick="openModal('David Affengruber','Verteidiger','Elche','Salzburg Akademie → Sturm Graz → Elche')">
+<img src="bilder/Affengruber.png">
+<div class="content">
+<h2>David Affengruber</h2>
+<p>Verteidiger</p>
+</div>
+</div>
+
+<div class="card" data-pos="abwehr"
+onclick="openModal('Phillipp Mwene','Verteidiger','Mainz 05','Stuttgart → Mainz')">
+<img src="bilder/Mwene.png">
+<div class="content">
+<h2>Phillipp Mwene</h2>
+<p>Verteidiger</p>
+</div>
+</div>
+
+<div class="card" data-pos="mittelfeld"
+onclick="openModal('Konrad Laimer','Mittelfeld','Bayern München','Salzburg → Leipzig → Bayern')">
+<img src="bilder/Laimer.png">
+<div class="content">
+<h2>Konrad Laimer</h2>
+<p>Mittelfeld</p>
+</div>
+</div>
+
+<div class="card" data-pos="mittelfeld"
+onclick="openModal('Marcel Sabitzer','Mittelfeld','Borussia Dortmund','Admira → Salzburg → Leipzig → Bayern → Dortmund')">
+<img src="bilder/Sabitzer.png">
+<div class="content">
+<h2>Marcel Sabitzer</h2>
+<p>Mittelfeld</p>
+</div>
+</div>
+
+<div class="card" data-pos="mittelfeld"
+onclick="openModal('Xaver Schlager','Mittelfeld','RB Leipzig','Salzburg → Wolfsburg → Leipzig')">
+<img src="bilder/Schlager.png">
+<div class="content">
+<h2>Xaver Schlager</h2>
+<p>Mittelfeld</p>
+</div>
+</div>
+
+<div class="card" data-pos="mittelfeld"
+onclick="openModal('Nicolas Seiwald','Mittelfeld','RB Leipzig','Salzburg → Leipzig')">
+<img src="bilder/Seiwald.png">
+<div class="content">
+<h2>Nicolas Seiwald</h2>
+<p>Mittelfeld</p>
+</div>
+</div>
+
+<div class="card" data-pos="mittelfeld"
+onclick="openModal('Florian Grillitsch','Mittelfeld','Braga','St. Pölten → Werder → Hoffenheim → Braga')">
+<img src="bilder/Grillitsch.png">
+<div class="content">
+<h2>Florian Grillitsch</h2>
+<p>Mittelfeld</p>
+</div>
+</div>
+
+<div class="card" data-pos="mittelfeld"
+onclick="openModal('Romano Schmid','Mittelfeld','Werder Bremen','Salzburg → Bremen')">
+<img src="bilder/Schmid.png">
+<div class="content">
+<h2>Romano Schmid</h2>
+<p>Mittelfeld</p>
+</div>
+</div>
+
+<div class="card" data-pos="mittelfeld"
+onclick="openModal('Carney Chukwuemeka','Mittelfeld','Borussia Dortmund','England Jugend → Chelsea → Dortmund')">
+<img src="bilder/Chukwuemeka.png">
+<div class="content">
+<h2>Carney Chukwuemeka</h2>
+<p>Mittelfeld</p>
+</div>
+</div>
+
+<div class="card" data-pos="mittelfeld"
+onclick="openModal('Dejan Ljubicic','Mittelfeld','1. FC Köln','Rapid Wien → Köln')">
+<img src="bilder/Ljubicic.png">
+<div class="content">
+<h2>Dejan Ljubicic</h2>
+<p>Mittelfeld</p>
+</div>
+</div>
+
+<div class="card" data-pos="mittelfeld"
+onclick="openModal('Alexander Prass','Mittelfeld','Hoffenheim','Sturm Graz → Hoffenheim')">
+<img src="bilder/Prass.png">
+<div class="content">
+<h2>Alexander Prass</h2>
+<p>Mittelfeld</p>
+</div>
+</div>
+
+<div class="card" data-pos="mittelfeld"
+onclick="openModal('Paul Wanner','Mittelfeld','PSV Eindhoven','Bayern → Leihen → PSV')">
+<img src="bilder/Wanner.png">
+<div class="content">
+<h2>Paul Wanner</h2>
+<p>Mittelfeld</p>
+</div>
+</div>
+
+<div class="card" data-pos="mittelfeld"
+onclick="openModal('Alessandro Schöpf','Mittelfeld','Wolfsberger AC','Bayern II → Schalke → WAC')">
+<img src="bilder/Schöpf.png">
+<div class="content">
+<h2>Alessandro Schöpf</h2>
+<p>Mittelfeld</p>
+</div>
+</div>
+
+
+<div class="card" data-pos="sturm"
+onclick="openModal('Marko Arnautovic','Stürmer','Roter Stern','Austria Wien → Inter → Stoke → Bologna → Roter Stern')">
+<img src="bilder/arnautovic.png">
+<div class="content">
+<h2>Marko Arnautovic</h2>
+<p>Stürmer</p>
+</div>
+</div>
+
+<div class="card" data-pos="sturm"
+onclick="openModal('Michael Gregoritsch','Stürmer','FC Augsburg','Kapfenberg → HSV → Augsburg')">
+<img src="bilder/Gregoritsch.png">
+<div class="content">
+<h2>Michael Gregoritsch</h2>
+<p>Stürmer</p>
+</div>
+</div>
+
+<div class="card" data-pos="sturm"
+onclick="openModal('Sasa Kalajdzic','Stürmer','LASK','Admira → Stuttgart → Wolves → LASK')">
+<img src="bilder/Kalajdzic.png">
+<div class="content">
+<h2>Sasa Kalajdzic</h2>
+<p>Stürmer</p>
+</div>
+</div>
+
+<div class="card" data-pos="sturm"
+onclick="openModal('Patrick Wimmer','Stürmer','VfL Wolfsburg','Austria Wien → Bielefeld → Wolfsburg')">
+<img src="bilder/Wimmer.png">
+<div class="content">
+<h2>Patrick Wimmer</h2>
+<p>Stürmer</p>
+</div>
+</div>
+
+<div class="card" data-pos="krankenstand"
+onclick="openModal('Christoph Baumgartner','Krankenstand','Krankenstand','Krankenstand')">
+<img src="bilder/Baumgartner.png">
+<div class="content">
+<h2>Christoph Baumgartner</h2>
+<p>Krankenstand</p>
+</div>
+</div>
+
+<div class="card" data-pos="fixstarter"
+onclick="openModal('Fixstarter WM 2034','Fixstarter WM 2034','Fixstarter WM 2034','Fixstarter WM 2034')">
+<img src="bilder/Fixstarter.png">
+<div class="content">
+<h2>Fixstarter WM 2034</h2>
+<p>Fixstarter WM 2034</p>
+</div>
+</div>
+
+</section>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+<div class="modal-content">
+<span class="close" onclick="closeModal()">✖</span>
+<h2 id="name"></h2>
+<p id="position"></p>
+<p id="club"></p>
+<p id="info"></p>
+</div>
+</div>
+
+<script>
+function filter(pos){
+    let cards=document.querySelectorAll('.card');
+    cards.forEach(c=>{
+        c.style.display=(pos==='all'||c.dataset.pos===pos)?'block':'none';
+    });
+}
+
+function openModal(n,p,c,i){
+    document.getElementById('modal').style.display='flex';
+    document.getElementById('name').innerText=n;
+    document.getElementById('position').innerText=p;
+    document.getElementById('club').innerText=c;
+    document.getElementById('info').innerText=i;
+}
+
+function closeModal(){
+    document.getElementById('modal').style.display='none';
+}
+</script>
+
+</body>
+</html>
